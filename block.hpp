@@ -1,12 +1,11 @@
-#include <string>
-#include <vector>
+
+#include <SFML/Graphics.hpp>
+
+using namespace sf;
 
 class Block {
 private:
-    int width;
-    int height;
-    int xPosition;
-    int yPosition;
+    RectangleShape shape;
     int numHits;
     bool isBreakable;
 public:
