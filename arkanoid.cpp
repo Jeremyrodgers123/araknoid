@@ -1,13 +1,14 @@
 
 #include <iostream>
+#include <SFML/Graphics.hpp>
 #include "block.hpp"
+#include "ball.hpp"
 
 using namespace std;
 
 int main() {
-    cout << "Building block...";
     auto block = Block(100, 50, 10, 20, 1, false);
-    cout << "Complete.";
+    auto ball = Ball();
     
     sf::RenderWindow window(sf::VideoMode(1200, 900), "My window");
     
@@ -34,6 +35,7 @@ int main() {
 //        rectangle.setOutlineThickness(5);
 //        rectangle.setPosition(10, 20);
         window.draw(block.getShape());
+        window.draw(ball.getShape());
         // end the current frame
         window.display();
     }

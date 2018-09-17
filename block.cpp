@@ -1,22 +1,38 @@
-#include "block.hpp"
-#include <SFML/Graphics.hpp>
+//
+//  block.cpp
+//  arkanoid
+//
+//  Created by Adam Quintana and Jeremy Rodgers on 9/17/18.
+//
+
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <vector>
+#include "ball.hpp"
 
 using namespace sf;
+using namespace std;
 
-Block::Block(int _height, int _width, int _xPosition, int _yPosition, int _numHits, bool _isBreakable) {
+const int MAX_HITS = 3;
+const vector<Color> COLORS = {Color::Red, Color::Yellow, Color::Green};
+
+Block::Block(int _height, int _width, int _xPosition, int _yPosition, int _remainingHits, bool _isBreakable) {
+    isActive = true;
     shape.setSize(Vector2f(_height, _width));
     shape.setPosition(Vector2f(_xPosition, _yPosition));
-    shape.setFillColor(Color::Green);
+    shape.setFillColor(COLORS[MAX_HITS - _remainingHits]);
     shape.setOutlineColor(Color::White);
     shape.setOutlineThickness(5);
-    numHits = _numHits;
+    remainingHits = _remainingHits;
     isBreakable = _isBreakable;
-    
 }
 
-void Block::isHit(){
-    numHits -= 1;
-    if (numHits <= 0 ){
+void Block::hit() {
+    remainingHits--;
+    if (remainingHits == 0) {
         isActive = false;
+    } else {
+        shape.setFillColor(COLORS[MAX_HITS - remainingHits]);
     }
 }
+
+

@@ -25,7 +25,7 @@ cmake_minimum_required(VERSION 3.8)
 project(arkanoid)
 
 #the project contains an executable named arkanoid that uses the following cpp files
-add_executable(arkanoid arkanoid.cpp block.hpp block.cpp)
+add_executable(arkanoid arkanoid.cpp block.hpp block.cpp ball.hpp ball.cpp)
 
 #create a folder named "cmake" at the top of your project and put the
 #findSFML.cmake file in it.  This line tells Cmake to look there for
