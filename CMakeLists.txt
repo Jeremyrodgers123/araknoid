@@ -6,8 +6,8 @@
 #mkdir xcode
 #cd xcode
 #cmake -G Xcode .. #tells cmake to make an XCode project, and that the CMakelists.txt file is in the directory above
-#you can then open the asteroids.xcodeproj file with xcode
-#in product -> scheme, select asteroids to run that executable when you press
+#you can then open the arkanoid.xcodeproj file with xcode
+#in product -> scheme, select arkanoid to run that executable when you press
 #the play button
 
 # to use make, I do something like
@@ -15,17 +15,17 @@
 #cd build
 #cmake .. #by default it creates a makefile for you
 #make #calls the make command which looks in Makefile to see what to do
-#./asteroids  #run the resulting file
+#./arkanoid  #run the resulting file
 
 
 #use a recent version of CMake
 cmake_minimum_required(VERSION 3.8)
 
-#the project is called asteroids
-project(asteroids)
+#the project is called arkanoid
+project(arkanoid)
 
-#the project contains an executable named asteroids that uses the following cpp files
-add_executable(asteroids asteroids.cpp world.cpp player.cpp bullet.cpp asteroid.cpp collisions.cpp)
+#the project contains an executable named arkanoid that uses the following cpp files
+add_executable(arkanoid arkanoid.cpp block.cpp)
 
 #create a folder named "cmake" at the top of your project and put the
 #findSFML.cmake file in it.  This line tells Cmake to look there for
@@ -38,10 +38,10 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 #used below
 find_package( SFML REQUIRED COMPONENTS graphics window system)
 
-#tells Cmake that the asteroids executable needs to be linked with SFML
-target_link_libraries(asteroids ${SFML_LIBRARIES})
+#tells Cmake that the arkanoid s executable needs to be linked with SFML
+target_link_libraries(arkanoid ${SFML_LIBRARIES})
 #and needs to look wherever the SFML headers are
-target_include_directories(asteroids PUBLIC ${SFML_INCLUDE_DIR})
+target_include_directories(arkanoid PUBLIC ${SFML_INCLUDE_DIR})
 
 #passes an option to clang when compiling to use recent c++ stuff
-target_compile_options(asteroids PUBLIC -std=c++14)
+target_compile_options(arkanoid PUBLIC -std=c++14)
