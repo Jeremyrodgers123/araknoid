@@ -17,7 +17,7 @@ const vector<Color> COLORS = {Color::Red, Color::Yellow, Color::Green};
 
 Block::Block(int _height, int _width, int _xPosition, int _yPosition, int _remainingHits, bool _isBreakable) {
     isActive = true;
-    shape.setSize(Vector2f(_height, _width));
+    shape.setSize(Vector2f(_width, _height));
     shape.setPosition(Vector2f(_xPosition, _yPosition));
     shape.setFillColor(COLORS[MAX_HITS - _remainingHits]);
     shape.setOutlineColor(Color::White);

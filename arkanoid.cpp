@@ -1,14 +1,18 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include "block.hpp"
 #include "ball.hpp"
+#include "bar.hpp"
 
 using namespace std;
+using namespace sf;
 
 int main() {
-    auto block = Block(100, 50, 10, 20, 1, false);
+    auto block = Block(50, 100, 10, 20, 1, false);
     auto ball = Ball();
+    auto bar = Bar(30 , 500);
     
     sf::RenderWindow window(sf::VideoMode(1200, 900), "My window");
     
@@ -19,6 +23,15 @@ int main() {
         sf::Event event;
         while (window.pollEvent(event))
         {
+            if(event.KeyPressed){
+                if(Keyboard::isKeyPressed(Keyboard::Left)){
+                    bar.moveLeft();
+                }else if(Keyboard::isKeyPressed(Keyboard::Right)){
+                    bar.moveRight();
+                    //break;
+                }
+            }
+            
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
                 window.close();
@@ -29,13 +42,9 @@ int main() {
         
         // draw everything here...
         
-        
-//        rectangle.setSize(sf::Vector2f(100, 50));
-//        rectangle.setOutlineColor(sf::Color::Red);
-//        rectangle.setOutlineThickness(5);
-//        rectangle.setPosition(10, 20);
         window.draw(block.getShape());
         window.draw(ball.getShape());
+        window.draw(bar.getShape());
         // end the current frame
         window.display();
     }

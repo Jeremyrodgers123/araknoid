@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <SFML/Graphics/CircleShape.hpp>
 #include "block.hpp"
+#include "bar.hpp"
 
 using namespace sf;
 
@@ -21,7 +22,7 @@ public:
     Ball();
     CircleShape getShape() {return shape;};
     void isHit(Block block);
-    //void isHit(Bar bar);
+    void isHit(Bar bar);
     bool isHit(FloatRect);
 };
 

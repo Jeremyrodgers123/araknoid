@@ -28,3 +28,9 @@ void Ball::isHit(Block block){
     }
 }
 
+void Ball::isHit(Bar bar){
+    if(isHit(bar.getShape().getLocalBounds())) {
+        //reverse ball direction
+    }
+};
+
