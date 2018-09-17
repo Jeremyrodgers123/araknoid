@@ -1,5 +1,5 @@
 #include "block.hpp"
-#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics.hpp>
 
 using namespace sf;
 
