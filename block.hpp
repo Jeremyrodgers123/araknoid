@@ -8,7 +8,9 @@ private:
     RectangleShape shape;
     int numHits;
     bool isBreakable;
+    bool isActive;
 public:
     Block(int _height, int _width, int _xPosition, int _yPosition, int _numHits, bool _isBreakable);
-    
+    RectangleShape getShape(){ return shape;};
+    void isHit();
 };
