@@ -20,15 +20,15 @@ class Ball {
 private:
     CircleShape shape;
 public:
-    Vector2f direction;
+    Vector2f velocity;
     
     Ball();
     
     CircleShape getShape() {return shape;};
     Vector2f getPosition() {return shape.getPosition();};
-    void isHit(Block block);
-    void isHit(Bar bar);
-    bool isHit(FloatRect);
+    bool detectCollision(Block block);
+    bool detectCollision(Bar bar);
+    bool detectCollision(FloatRect obstacle);
     void move();
 };
 

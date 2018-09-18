@@ -19,37 +19,41 @@ Ball::Ball() {
     shape.setOutlineColor(BALL_COLOR);
     shape.setFillColor(BALL_COLOR);
     shape.setPosition(BALL_START_POSITION);
-    direction.x = -1;
-    direction.y = -1;
+    velocity.x = -1;
+    velocity.y = -1;
 }
 
-bool Ball::isHit(FloatRect obstacle) {
+bool Ball::detectCollision(FloatRect obstacle) {
     return obstacle.contains(shape.getPosition());
 }
 
-void Ball::isHit(Block block){
+bool Ball::detectCollision(Block block){
     if (block.isActive) {
-        if(isHit(block.getShape().getLocalBounds())) {
+        if(detectCollision(block.getShape().getLocalBounds())) {
             block.hit();
             //reverse ball direction
+            return true;
         }
     }
+    return false;
 }
 
-void Ball::isHit(Bar bar){
-    if(isHit(bar.getShape().getLocalBounds())) {
+bool Ball::detectCollision(Bar bar){
+    if(detectCollision(bar.getShape().getLocalBounds())) {
         //reverse ball direction
+        return true;
     }
+    return false;
 };
 
 void Ball::move() {
     auto currentPosition = getPosition();
     if (currentPosition.x < 0 || currentPosition.x > 1200) {
-        direction.x *= -1;
+        velocity.x *= -1;
     }
     if (currentPosition.y < 0 || currentPosition.y > 900) {
-        direction.y *= -1;
+        velocity.y *= -1;
     }
-    shape.move(direction);
+    shape.move(velocity);
 }
 
