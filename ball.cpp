@@ -8,11 +8,19 @@
 #include "ball.hpp"
 #include "block.hpp"
 
+using namespace sf;
+using namespace std;
+
+const Color BALL_COLOR = Color(50, 150, 12, 255);
+const Vector2f BALL_START_POSITION = Vector2f(550, 770);
+
 Ball::Ball() {
-    shape.setRadius(10);
-    shape.setOutlineColor(Color::White);
-    shape.setFillColor(Color::White);
-    shape.setPosition(100, 100);
+    shape.setRadius(8);
+    shape.setOutlineColor(BALL_COLOR);
+    shape.setFillColor(BALL_COLOR);
+    shape.setPosition(BALL_START_POSITION);
+    direction.x = -1;
+    direction.y = -1;
 }
 
 bool Ball::isHit(FloatRect obstacle) {
@@ -33,4 +41,15 @@ void Ball::isHit(Bar bar){
         //reverse ball direction
     }
 };
+
+void Ball::move() {
+    auto currentPosition = getPosition();
+    if (currentPosition.x < 0 || currentPosition.x > 1200) {
+        direction.x *= -1;
+    }
+    if (currentPosition.y < 0 || currentPosition.y > 900) {
+        direction.y *= -1;
+    }
+    shape.move(direction);
+}
 

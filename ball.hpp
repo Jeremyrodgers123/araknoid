@@ -14,16 +14,22 @@
 #include "bar.hpp"
 
 using namespace sf;
+using namespace std;
 
 class Ball {
 private:
     CircleShape shape;
 public:
+    Vector2f direction;
+    
     Ball();
+    
     CircleShape getShape() {return shape;};
+    Vector2f getPosition() {return shape.getPosition();};
     void isHit(Block block);
     void isHit(Bar bar);
     bool isHit(FloatRect);
+    void move();
 };
 
 #endif /* ball_hpp */

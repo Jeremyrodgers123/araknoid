@@ -10,20 +10,25 @@
 
 #include <stdio.h>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/System/Vector2.hpp>
 
 using namespace sf;
+using namespace std;
 
 class Block {
 private:
     RectangleShape shape;
-    int remainingHits;
     bool isBreakable;
 public:
     bool isActive;
-    Block(int _height, int _width, int _xPosition, int _yPosition, int _remainingHits, bool _isBreakable);
+    
+    Block();
+    Block(Vector2f _dimensions, Vector2f _position, int _colorIndex, bool _isBreakable, bool _isActive);
+    
     RectangleShape getShape(){ return shape;};
-    Vector2f getPosition() { return shape.getPosition();};
     void hit();
+    static const vector<Color> BREAKABLE_COLORS;
+    static const Color UNBREAKABLE_COLOR;
 };
 
 #endif /* block_hpp */

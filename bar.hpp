@@ -2,7 +2,7 @@
 //  bar.hpp
 //  arkanoid
 //
-//  Created by Jeremy Rodgers on 9/17/18.
+//  Created by Jeremy Rodgers and Adam Quintana on 9/17/18.
 //
 
 #ifndef bar_hpp
@@ -10,12 +10,16 @@
 
 #include <stdio.h>
 #include <SFML/Graphics/RectangleShape.hpp>
+
 using namespace sf;
 using namespace std;
+
 class Bar {
       RectangleShape shape;
 public:
-    Bar(int _width, int _xPosition);
+    Bar();
+    Bar(int _width);
+    
     RectangleShape getShape(){ return shape;};
     Vector2f getPosition() { return shape.getPosition();};
     void moveLeft();
