@@ -24,6 +24,7 @@ public:
     Bar bar;
     Level(int windowHeight, int level);
     void draw(RenderWindow& window);
+    void detectCollision();
 };
 
 #endif /* level_hpp */

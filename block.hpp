@@ -26,7 +26,7 @@ public:
     Block(Vector2f _dimensions, Vector2f _position, int _colorIndex, bool _isBreakable, bool _isActive);
     
     RectangleShape getShape(){ return shape;};
-    void hit();
+    void collision();
     static const vector<Color> BREAKABLE_COLORS;
     static const Color UNBREAKABLE_COLOR;
 };

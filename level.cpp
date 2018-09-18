@@ -10,6 +10,7 @@
 #include "block.hpp"
 #include "ball.hpp"
 #include "bar.hpp"
+#include <iostream>
 
 const int BLOCKS_PER_ROW = 13;
 const int BLOCKS_PER_COLUMN = 6;
@@ -65,5 +66,16 @@ void Level::draw(RenderWindow& window) {
         }
     }
     ball.move();
+    detectCollision();
     window.draw(ball.getShape());
 }
+void Level::detectCollision(){
+    for(Block &currentBlock : blocks){
+        if (currentBlock.isActive){
+            if(ball.detectCollision(currentBlock)){
+                cout << "collision detected" << endl;
+                currentBlock.collision();
+            }
+        }
+    }
+};

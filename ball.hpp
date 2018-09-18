@@ -19,13 +19,14 @@ using namespace std;
 class Ball {
 private:
     CircleShape shape;
+    Vector2f prevPosition;
 public:
     Vector2f velocity;
     
     Ball();
-    
-    CircleShape getShape() {return shape;};
     Vector2f getPosition() {return shape.getPosition();};
+    Vector2f getPrevPosition(){return prevPosition;};
+    CircleShape getShape() {return shape;};
     bool detectCollision(Block block);
     bool detectCollision(Bar bar);
     bool detectCollision(FloatRect obstacle);

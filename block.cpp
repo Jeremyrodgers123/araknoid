@@ -41,7 +41,7 @@ Block::Block(Vector2f _dimensions, Vector2f _position, int _colorIndex, bool _is
     shape.setOutlineThickness(5);
 }
 
-void Block::hit() {
+void Block::collision() {
     isActive = false;
 }
 
