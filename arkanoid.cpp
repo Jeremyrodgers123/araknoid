@@ -52,6 +52,7 @@ int main() {
                             skipLevel = true;
                         } else if(Keyboard::isKeyPressed(Keyboard::Space)){
                             //skipLevel = true;
+                            level.ball.start();
                         }
                     }
                     

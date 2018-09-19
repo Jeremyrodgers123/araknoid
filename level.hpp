@@ -22,13 +22,13 @@ private:
     string name;
     string author;
     vector<Block> blocks;
-    Ball ball;
+    int& currentLives;
 public:
     Bar bar;
+    Ball ball;
     Field field;
     bool isGodMode;
-    
-    Level(string fileName);
+    Level(string fileName, int& _currentLives);
     
     void draw(RenderWindow& window);
     void detectCollision();

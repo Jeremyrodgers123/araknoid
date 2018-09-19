@@ -20,8 +20,7 @@ const int BLOCK_HEIGHT = 25;
 const int BAR_HEIGHT = 20;
 
 using namespace std;
-
-Level::Level(string fileName) {
+Level::Level(string fileName, int& _currentLives) {
     field = Field();
     auto fieldTopPosition = field.getShape().getGlobalBounds().top;
     auto fieldHeight = field.getShape().getGlobalBounds().height;
@@ -29,7 +28,7 @@ Level::Level(string fileName) {
     auto fieldLeftPosition = field.getShape().getGlobalBounds().left;
     auto fieldWidth = field.getShape().getGlobalBounds().width;
     auto fieldRightPosition = fieldLeftPosition + fieldWidth;
-    
+    currentLives = _currentLives;
     auto fieldSize = field.getShape().getSize();
     auto fieldPosition = field.getShape().getPosition();
                                
@@ -71,7 +70,7 @@ Level::Level(string fileName) {
     
     auto rowNum = 0;
     while(getline(ins, line)) {
-        currentBlockPosition.x = field.getShape().getPosition().x;
+        currentBlockPosition.x = fieldPosition.x;
         auto colNum = 0;
         for (char c : line) {
             int colorIndex = c - '0';
@@ -94,6 +93,12 @@ void Level::draw(RenderWindow& window) {
     }
     ball.move();
     detectCollision();
+    if(!ball.isInbounds){
+        currentLives -= 1;
+        float speed = ball.getSpeed();
+        Vector2f position = bar.getPosition();
+        ball = Ball(position, speed);
+    }
     window.draw(ball.getShape());
 }
 

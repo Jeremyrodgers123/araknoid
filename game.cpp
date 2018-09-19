@@ -18,6 +18,6 @@ Game::Game() {}
 Game::Game(int _numLives) {
     numLives = _numLives;
     for (string levelName : LEVEL_NAMES) {
-        levels.push_back(Level(levelName));
+        levels.push_back(Level(levelName, numLives));
     }
 }

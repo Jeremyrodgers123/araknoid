@@ -17,13 +17,15 @@ const int BALL_RADIUS = 8;
 
 Ball::Ball(){};
 
-Ball::Ball(Vector2f _position, int _speed) {
+Ball::Ball(Vector2f _position, float _speed) {
     shape.setRadius(BALL_RADIUS);
     shape.setOutlineColor(BALL_COLOR);
     shape.setFillColor(BALL_COLOR);
     shape.setPosition(_position);
-    velocity = Vector2f(-1, -1);
+    velocity = Vector2f(0, 0);
+    speed = _speed;
     prevPosition = _position;
+    isInbounds = true;
 }
 
 bool Ball::detectCollision(Block block){
@@ -86,8 +88,11 @@ void Ball::detectCollision(Field field){
     if (ballPosition.x < left || ballPosition.x > right) {
         velocity.x *= -1;
     }
-    if (ballPosition.y < top || ballPosition.y > bottom) {
+    if (ballPosition.y < top ) {
         velocity.y *= -1;
+    }else if( ballPosition.y > bottom){
+        velocity.y *= -1;
+        isInbounds = false;
     }
 };
 
@@ -96,5 +101,8 @@ void Ball::move() {
     shape.move(velocity);
 }
 
+void Ball::start(){
+    velocity = Vector2f(-1 * speed,-1 *speed );
+}
 
 

@@ -22,11 +22,13 @@ private:
     CircleShape shape;
     Vector2f prevPosition;
     Vector2f velocity;
+    float speed;
 public:
-    
+    float getSpeed(){return speed;};
+    bool isInbounds;
     Ball();
-    Ball(Vector2f _position, int _speed);
-    
+    Ball(Vector2f _position, float _speed);
+    void start();
     Vector2f getPosition() {return shape.getPosition();};
     Vector2f getPrevPosition(){return prevPosition;};
     CircleShape getShape() {return shape;};
