@@ -27,8 +27,8 @@ Bar::Bar(Vector2f _dimension, Vector2f _position, int _speed){
 };
 
 void Bar::moveLeft(Field field){
-    auto bounds = field.getShape().getGlobalBounds();
-    auto left = bounds.left;
+    auto fieldPosition = field.getShape().getPosition();
+    auto left = fieldPosition.x;
     auto barPosition = getPosition();
     if (barPosition.x > left) {
         shape.move(speed * -1, 0);
@@ -38,12 +38,37 @@ void Bar::moveLeft(Field field){
 };
 
 void Bar::moveRight(Field field){
-    auto bounds = field.getShape().getGlobalBounds();
-    auto right = bounds.left + bounds.width;
+    auto fieldPosition = field.getShape().getPosition();
+    auto fieldSize = field.getShape().getSize();
+    auto right = fieldPosition.x + fieldSize.x;
+    auto barSize = shape.getSize();
     auto barPosition = getPosition();
-    if (barPosition.x  + shape.getSize().x < right) {
+    if (barPosition.x  + barSize.x < right) {
         shape.move(speed, 0);
     } else {
         shape.setPosition(right - shape.getSize().x, barPosition.y);
+    }
+};
+
+void Bar::moveUp(Field field){
+    auto fieldPosition = field.getShape().getPosition();
+    auto top = fieldPosition.y;
+    auto barPosition = getPosition();
+    if (barPosition.y > top) {
+        shape.move(0, speed * -1);
+    } else {
+        shape.setPosition(barPosition.x, top);
+    }
+};
+
+void Bar::moveDown(Field field){
+    auto fieldPosition = field.getShape().getPosition();
+    auto fieldSize = field.getShape().getSize();
+    auto bottom = fieldPosition.y + fieldSize.y;
+    auto barPosition = getPosition();
+    if (barPosition.y  + fieldSize.y < bottom) {
+        shape.move(0, speed);
+    } else {
+        shape.setPosition(barPosition.x, bottom - fieldSize.y);
     }
 };

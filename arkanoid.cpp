@@ -27,11 +27,7 @@ int main() {
         
         // loop through levels
         for( int i = 0 ; i < game.levels.size(); i++){
-            //for (auto level : game.levels) {
             bool skipLevel = false;
-//            if (level.isComplete()) {
-//                continue;
-//            }
             
             //update title
             window.setTitle("A&J's Arkanoid: " + game.levels[i].getName() + " by " + game.levels[i].getAuthor());
@@ -46,14 +42,23 @@ int main() {
                     if(event.KeyPressed){
                         if(Keyboard::isKeyPressed(Keyboard::Left)){
                             game.levels[i].bar.moveLeft(game.levels[i].field);
-                        }else if(Keyboard::isKeyPressed(Keyboard::Right)){
+                        } else if(Keyboard::isKeyPressed(Keyboard::Right)){
                             game.levels[i].bar.moveRight(game.levels[i].field);
+                        } else if(Keyboard::isKeyPressed(Keyboard::Up)){
+                            if (game.isGodMode()) {
+                                game.levels[i].bar.moveUp(game.levels[i].field);
+                            }
+                        } else if(Keyboard::isKeyPressed(Keyboard::Down)){
+                            if (game.isGodMode()) {
+                                game.levels[i].bar.moveDown(game.levels[i].field);
+                            }
                         } else if(Keyboard::isKeyPressed(Keyboard::Escape)){
                             skipLevel = true;
                             game.levels[i] = Level(LEVEL_NAMES[i]);
                         } else if(Keyboard::isKeyPressed(Keyboard::Space)){
-                            cout << "spacebar pressed" << endl;
                             game.levels[i].ball.start();
+                        } else if(Keyboard::isKeyPressed(Keyboard::LShift) && Keyboard::isKeyPressed(Keyboard::G)){
+                            game.toggleGodMode();
                         }
                     }
                     

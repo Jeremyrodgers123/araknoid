@@ -16,13 +16,18 @@ const vector<string> LEVEL_NAMES = vector<string> {"level1.txt", "level2.txt", "
 class Game {
 private:
     int numLives;
+    bool godMode;
 public:
     vector<Level> levels;
     int currentLevelIndex;
+    
     Game();
     Game(int _numLives);
+    
     void draw(RenderWindow& window, int levelIndex);
     bool isOver() {return numLives == 0;};
+    bool isGodMode() {return godMode;};
+    void toggleGodMode() {godMode = !godMode;};
 };
 
 

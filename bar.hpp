@@ -26,5 +26,7 @@ public:
     Vector2f getPosition() { return shape.getPosition();};
     void moveLeft(Field field);
     void moveRight(Field field);
+    void moveUp(Field field);
+    void moveDown(Field field);
 };
 #endif /* bar_hpp */
