@@ -78,14 +78,21 @@ void Ball::detectCollision(Bar bar){
 };
 
 void Ball::detectCollision(Field field){
-    auto obstacleRect = field.getShape().getGlobalBounds();
-    auto top = obstacleRect.top;
-    auto bottom = obstacleRect.top + obstacleRect.height;
-    auto left = obstacleRect.left;
-    auto right = obstacleRect.left + obstacleRect.width;
+    auto fieldPosition = field.getShape().getPosition();
+    auto fieldSize =field.getShape().getSize();
+    auto top = fieldPosition.y;
+    auto bottom = fieldPosition.y + fieldSize.y;
+    auto left = fieldPosition.x;
+    auto right = fieldPosition.x + fieldSize.x;
 
     auto ballPosition = getPosition();
     if (ballPosition.x < left || ballPosition.x > right) {
+        shape.setPosition(prevPosition);
+        cout << "Left: " << left << endl;
+        cout << "X: " << field.getShape().getPosition().x << endl;
+        cout << "Right: " << right << endl;
+
+        
         velocity.x *= -1;
     }
     if (ballPosition.y < top ) {

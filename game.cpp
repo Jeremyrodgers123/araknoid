@@ -6,18 +6,41 @@
 //
 
 #include <vector>
+#include <iostream>
 #include "game.hpp"
 #include "level.hpp"
 
 using namespace std;
 
-const vector<string> LEVEL_NAMES = vector<string> {"level1.txt", "level2.txt", "level3.txt"};
+
 
 Game::Game() {}
 
 Game::Game(int _numLives) {
     numLives = _numLives;
     for (string levelName : LEVEL_NAMES) {
-        levels.push_back(Level(levelName, numLives));
+        levels.push_back(Level(levelName));
     }
 }
+
+void Game::draw(RenderWindow& window, int levelIndex) {
+    Level &currentLevel = levels[levelIndex];
+    window.draw(currentLevel.field.getShape());
+    window.draw(currentLevel.bar.getShape());
+    for (auto block : currentLevel.blocks) {
+        if (block.isActive) {
+            window.draw(block.getShape());
+        }
+    }
+    currentLevel.ball.move();
+    currentLevel.detectCollision();
+    if(!currentLevel.ball.isInbounds){
+        numLives -= 1;
+        float speed = currentLevel.ball.getSpeed();
+        Vector2f position = currentLevel.bar.getPosition();
+        currentLevel.ball = Ball(position, speed);
+    }
+    window.draw(currentLevel.ball.getShape());
+}
+
+

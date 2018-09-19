@@ -26,18 +26,18 @@ int main() {
     while (window.isOpen() && !game.isOver()) {
         
         // loop through levels
-    
-        for (auto level : game.levels) {
+        for( int i = 0 ; i < game.levels.size(); i++){
+            //for (auto level : game.levels) {
             bool skipLevel = false;
 //            if (level.isComplete()) {
 //                continue;
 //            }
             
             //update title
-            window.setTitle("A&J's Arkanoid: " + level.getName() + " by " + level.getAuthor());
+            window.setTitle("A&J's Arkanoid: " + game.levels[i].getName() + " by " + game.levels[i].getAuthor());
             
             // run level until skipped or game over
-            while(window.isOpen() && !game.isOver() && !skipLevel) {
+            while(window.isOpen() && !game.isOver() && !skipLevel && !game.levels[i].isComplete()) {
                 
                 // check all the window's events that were triggered since the last iteration of the loop
                 Event event;
@@ -45,14 +45,15 @@ int main() {
                 {
                     if(event.KeyPressed){
                         if(Keyboard::isKeyPressed(Keyboard::Left)){
-                            level.bar.moveLeft(level.field);
+                            game.levels[i].bar.moveLeft(game.levels[i].field);
                         }else if(Keyboard::isKeyPressed(Keyboard::Right)){
-                            level.bar.moveRight(level.field);
+                            game.levels[i].bar.moveRight(game.levels[i].field);
                         } else if(Keyboard::isKeyPressed(Keyboard::Escape)){
                             skipLevel = true;
+                            game.levels[i] = Level(LEVEL_NAMES[i]);
                         } else if(Keyboard::isKeyPressed(Keyboard::Space)){
-                            //skipLevel = true;
-                            level.ball.start();
+                            cout << "spacebar pressed" << endl;
+                            game.levels[i].ball.start();
                         }
                     }
                     
@@ -65,7 +66,7 @@ int main() {
                 window.clear(BACKGROUND_COLOR);
                 
                 // draw everything here...
-                level.draw(window);
+                game.draw(window, i);
                 
                 // end the current frame
                 window.display();

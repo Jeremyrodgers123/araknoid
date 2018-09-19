@@ -21,15 +21,14 @@ class Level {
 private:
     string name;
     string author;
-    vector<Block> blocks;
-    int& currentLives;
 public:
     Bar bar;
     Ball ball;
+    vector<Block> blocks;
     Field field;
     bool isGodMode;
-    Level(string fileName, int& _currentLives);
-    
+    Level(string fileName);
+    bool isComplete();
     void draw(RenderWindow& window);
     void detectCollision();
     string getName() {return name;};
