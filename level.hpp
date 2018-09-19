@@ -13,18 +13,27 @@
 #include "block.hpp"
 #include "ball.hpp"
 #include "bar.hpp"
+#include "field.hpp"
 
 using namespace std;
 
 class Level {
 private:
+    string name;
+    string author;
     vector<Block> blocks;
     Ball ball;
 public:
     Bar bar;
-    Level(int windowHeight, int level);
+    Field field;
+    bool isGodMode;
+    
+    Level(string fileName);
+    
     void draw(RenderWindow& window);
     void detectCollision();
+    string getName() {return name;};
+    string getAuthor() {return author;};
 };
 
 #endif /* level_hpp */

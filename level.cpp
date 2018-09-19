@@ -5,60 +5,87 @@
 //  Created by Adam Quintana and Jeremy Rodgers on 9/17/18.
 //
 
-//#include <SFML/Graphics.hpp>
+#include <iostream>
+#include <fstream>
+#include <string>
 #include "level.hpp"
 #include "block.hpp"
 #include "ball.hpp"
 #include "bar.hpp"
-#include <iostream>
 
 const int BLOCKS_PER_ROW = 13;
-const int BLOCKS_PER_COLUMN = 6;
+const int BLOCKS_PER_COLUMN = 10;
 const int BLOCK_HEIGHT = 25;
-const int BUFFER = 20;
-const vector<int> BAR_WIDTHS_PER_LEVEL = vector<int> {100, 75, 50, 25};
-const vector<int> BALL_SPEEDS_PER_LEVEL = vector<int> {10, 20, 30, 40};
+
+const int BAR_HEIGHT = 20;
 
 using namespace std;
 
-vector<Block> buildLevelOne(int windowWidth) {
-    auto blocks = vector<Block>(BLOCKS_PER_ROW * BLOCKS_PER_COLUMN);
-    auto blockWidth = (windowWidth - BUFFER) / BLOCKS_PER_ROW;
-    auto blockHeight = BLOCK_HEIGHT;
-    //int colorIndex = rand() % Block::BREAKABLE_COLORS.size();
-    int colorIndex = 0;
-    auto yPosition = BUFFER;
-    for (int row = 0; row < BLOCKS_PER_COLUMN; row++) {
-        auto xPosition = BUFFER;
-        for (int col = 0; col < BLOCKS_PER_ROW; col++) {
-            auto dimension = Vector2f(blockWidth, blockHeight);
-            auto position = Vector2f(xPosition, yPosition);
-            blocks[row * BLOCKS_PER_ROW + col] = Block(dimension, position, colorIndex, true, true);
-            xPosition += blockWidth;
-        }
-        yPosition += blockHeight;
-        colorIndex++;
+Level::Level(string fileName) {
+    field = Field();
+    auto fieldTopPosition = field.getShape().getGlobalBounds().top;
+    auto fieldHeight = field.getShape().getGlobalBounds().height;
+    auto fieldBottomPosition = fieldTopPosition + fieldHeight;
+    auto fieldLeftPosition = field.getShape().getGlobalBounds().left;
+    auto fieldWidth = field.getShape().getGlobalBounds().width;
+    auto fieldRightPosition = fieldLeftPosition + fieldWidth;
+    
+    auto fieldSize = field.getShape().getSize();
+    auto fieldPosition = field.getShape().getPosition();
+                               
+    
+    blocks = vector<Block>(BLOCKS_PER_ROW * BLOCKS_PER_COLUMN);
+    auto blockDimension = Vector2f(fieldSize.x / BLOCKS_PER_ROW, BLOCK_HEIGHT);
+    auto currentBlockPosition = fieldPosition;
+    ifstream ins(fileName);
+    if (!ins) {
+        cout << fileName << " not found." << endl;
+        exit(1);
     }
-    return blocks;
-}
-
-Level::Level(int windowHeight, int level) {
-    bar = Bar(BAR_WIDTHS_PER_LEVEL[level - 1]);
-    ball = Ball();
-    switch (level) {
-        case 1:
-            blocks = buildLevelOne(windowHeight);
-            break;
-        case 2:
-            break;
-        case 3:
-            break;
-        default:
-            break;
+    string line;
+    
+    //get name
+    getline(ins, name);
+    
+    //get author
+    getline(ins, author);
+    
+    //get bar settingsd
+    getline(ins, line);
+    int barWidth = stoi(line);
+    getline(ins, line);
+    int barSpeed = stoi(line);
+    auto barDimension = Vector2f(barWidth, BAR_HEIGHT);
+    auto barPosition = Vector2f(fieldPosition.x + fieldSize.x/2 - barWidth/2, fieldBottomPosition - 200);
+    bar = Bar(barDimension, barPosition, barSpeed);
+    
+    //get ball settings
+    getline(ins, line);
+    int ballSpeed = stoi(line);
+    auto ballPosition = barPosition;
+    ball = Ball(ballPosition, ballSpeed);
+    
+    //get isGodMode
+    getline(ins, line);
+    isGodMode = stoi(line);
+    
+    auto rowNum = 0;
+    while(getline(ins, line)) {
+        currentBlockPosition.x = field.getShape().getPosition().x;
+        auto colNum = 0;
+        for (char c : line) {
+            int colorIndex = c - '0';
+            blocks[rowNum * BLOCKS_PER_ROW + colNum] = Block(blockDimension, currentBlockPosition, colorIndex);
+            currentBlockPosition.x += blockDimension.x;
+            colNum++;
+        }
+        currentBlockPosition.y += blockDimension.y;
+        rowNum++;;
     }
 }
 
 void Level::draw(RenderWindow& window) {
+    window.draw(field.getShape());
     window.draw(bar.getShape());
     for (auto block : blocks) {
         if (block.isActive) {
@@ -69,7 +96,10 @@ void Level::draw(RenderWindow& window) {
     detectCollision();
     window.draw(ball.getShape());
 }
+
 void Level::detectCollision(){
+    ball.detectCollision(field);
+    ball.detectCollision(bar);
     for(Block &currentBlock : blocks){
         if (currentBlock.isActive){
             if(ball.detectCollision(currentBlock)){

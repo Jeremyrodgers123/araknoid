@@ -13,65 +13,85 @@ using namespace sf;
 using namespace std;
 
 const Color BALL_COLOR = Color(50, 150, 12, 255);
-const Vector2f BALL_START_POSITION = Vector2f(550, 770);
+const int BALL_RADIUS = 8;
 
-Ball::Ball() {
-    shape.setRadius(8);
+Ball::Ball(){};
+
+Ball::Ball(Vector2f _position, int _speed) {
+    shape.setRadius(BALL_RADIUS);
     shape.setOutlineColor(BALL_COLOR);
     shape.setFillColor(BALL_COLOR);
-    shape.setPosition(BALL_START_POSITION);
-    velocity.x = -1;
-    velocity.y = -1;
-    prevPosition = BALL_START_POSITION;
+    shape.setPosition(_position);
+    velocity = Vector2f(-1, -1);
+    prevPosition = _position;
 }
 
-bool Ball::detectCollision(FloatRect obstaclePos) {
-    //ball center
+bool Ball::detectCollision(Block block){
     Vector2f ballCenter = getPosition();
-    auto right = obstaclePos.left + obstaclePos.width;
-    auto bottom = obstaclePos.top + obstaclePos.height;
-    if(obstaclePos.contains(ballCenter)){
+    auto obstacleRect = block.getShape().getGlobalBounds();
+    auto top = obstacleRect.top;
+    auto bottom = obstacleRect.top + obstacleRect.height;
+    auto left = obstacleRect.left;
+    auto right = obstacleRect.left + obstacleRect.width;
+    if(obstacleRect.contains(ballCenter) && !obstacleRect.contains(prevPosition)){
         cout << "collision" <<endl;
-        if(!(prevPosition.x > obstaclePos.left && prevPosition.x < right)){
+        if(!(prevPosition.x > left && prevPosition.x < right)){
             cout << "change x direction" << endl;
             velocity.x *= -1;
-        }else if (!(prevPosition.y > obstaclePos.top && prevPosition.y < bottom)){
+        } else if (!(prevPosition.y > top && prevPosition.y < bottom)){
             cout << "change y direction" << endl;
             velocity.y *= -1;
         }
         return true;
-    };
-    return false;
-}
-
-bool Ball::detectCollision(Block block){
-    
-    
-        if(detectCollision(block.getShape().getGlobalBounds())) {
-            //reverse ball direction
-            
-            return true;
-        }
-    
-    return false;
-}
-
-bool Ball::detectCollision(Bar bar){
-    if(detectCollision(bar.getShape().getLocalBounds())) {
-        //reverse ball direction
-        return true;
     }
     return false;
+    
+}
+
+void Ball::detectCollision(Bar bar){
+    Vector2f ballCenter = getPosition();
+    auto obstacleRect = bar.getShape().getGlobalBounds();
+    auto top = obstacleRect.top;
+    auto bottom = obstacleRect.top + obstacleRect.height;
+    auto left = obstacleRect.left;
+    auto right = obstacleRect.left + obstacleRect.width;
+    auto width = obstacleRect.width;
+    if(obstacleRect.contains(ballCenter) && !obstacleRect.contains(prevPosition)){
+        auto firstQuarter = left + (width*0.25);
+        auto lastQuarter = right - (width*0.25);
+        if (ballCenter.x < firstQuarter || ballCenter.x > lastQuarter) {
+            velocity.x *= 1.5;
+        } else {
+            velocity.x = velocity.x < 0 ? -1 : 1;
+        }
+        cout << "collision" <<endl;
+        if(!(prevPosition.x > left && prevPosition.x < right)){
+            cout << "change x direction" << endl;
+            velocity.x *= -1;
+        } else if (!(prevPosition.y > top && prevPosition.y < bottom)){
+            cout << "change y direction" << endl;
+            velocity.y *= -1;
+        }
+    }
+};
+
+void Ball::detectCollision(Field field){
+    auto obstacleRect = field.getShape().getGlobalBounds();
+    auto top = obstacleRect.top;
+    auto bottom = obstacleRect.top + obstacleRect.height;
+    auto left = obstacleRect.left;
+    auto right = obstacleRect.left + obstacleRect.width;
+
+    auto ballPosition = getPosition();
+    if (ballPosition.x < left || ballPosition.x > right) {
+        velocity.x *= -1;
+    }
+    if (ballPosition.y < top || ballPosition.y > bottom) {
+        velocity.y *= -1;
+    }
 };
 
 void Ball::move() {
-    auto currentPosition = getPosition();
-    if (currentPosition.x < 0 || currentPosition.x > 1200) {
-        velocity.x *= -1;
-    }
-    if (currentPosition.y < 0 || currentPosition.y > 900) {
-        velocity.y *= -1;
-    }
     prevPosition = getPosition();
     shape.move(velocity);
 }

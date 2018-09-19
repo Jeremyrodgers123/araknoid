@@ -10,19 +10,21 @@
 
 #include <stdio.h>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include "field.hpp"
 
 using namespace sf;
 using namespace std;
 
 class Bar {
-      RectangleShape shape;
+    RectangleShape shape;
+    int speed;
 public:
     Bar();
-    Bar(int _width);
+    Bar(Vector2f _dimension, Vector2f _position, int _speed);
     
     RectangleShape getShape(){ return shape;};
     Vector2f getPosition() { return shape.getPosition();};
-    void moveLeft();
-    void moveRight();
+    void moveLeft(Field field);
+    void moveRight(Field field);
 };
 #endif /* bar_hpp */

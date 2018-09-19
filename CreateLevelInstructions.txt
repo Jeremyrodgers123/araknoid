@@ -1,0 +1,48 @@
+LEGEND:
+Maximum Columns = 13
+Maximum Rows = 10
+0: SPACE/BLANK
+1: RED
+2: GREEN
+3: WHITE
+4: ORANGE
+5: LIGHT_BLUE
+6: DARK_BLUE
+7: PINK
+8: YELLOW
+9: GRAY (unbreakable)
+
+FORMAT:
+Title
+Author
+Bar Width: 100 = narrow, 500 = wide
+Bar Speed: 10 = slow, 50 = fast
+Ball Speed: 1 = slow, 3 = fast
+isGodMode: 0 = false, 1 = true
+Row 0 Values (x13)
+Row 1 Values (x13)
+Row 2 Values (x13)
+Row 3 Values (x13)
+Row 4 Values (x13)
+Row 5 Values (x13)
+Row 6 Values (x13)
+Row 7 Values (x13)
+Row 8 Values (x13)
+Row 9 Values (x13)
+
+EXAMPLE:
+Level 1
+Adam Quintana
+5
+5
+0
+2222222222222
+0000000000000
+3333333333333
+0000000000000
+4444444444444
+0000000000000
+5555555555555
+0000000000000
+6666666666666
+0000000000000
