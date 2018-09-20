@@ -35,10 +35,13 @@ public:
     void detectCollision(Bar bar);
     bool detectCollision(Block block);
     void move();
+    
+    void shift(int barMovement);
     void setSpeed(float _speed) {speed = _speed;};
     float getSpeed(){return speed;};
     Vector2f getVelocity() {return velocity;};
     void setVelocity(float _x, float _y) {velocity = Vector2f(_x, _y);};
+    void centerWithBar(int barWidth);
 };
 
 #endif /* ball_hpp */

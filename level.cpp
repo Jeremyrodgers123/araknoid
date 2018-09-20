@@ -49,7 +49,10 @@ Level::Level(string fileName, bool isGodMode) {
     getline(ins, line);
     int ballSpeed = stoi(line);
     auto ballPosition = barPosition;
-    ball = Ball(ballPosition, ballSpeed);
+
+    //ball position offset
+    ball = Ball(ballPosition,ballSpeed);
+    ball.centerWithBar(barWidth);
     
     while(getline(ins, line)) {
         currentBlockPosition.x = fieldPosition.x;

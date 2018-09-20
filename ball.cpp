@@ -88,11 +88,6 @@ void Ball::detectCollision(Field field, bool isGodMode){
     auto ballPosition = getPosition();
     if (ballPosition.x < left || ballPosition.x > right) {
         shape.setPosition(prevPosition);
-        cout << "Left: " << left << endl;
-        cout << "X: " << field.getShape().getPosition().x << endl;
-        cout << "Right: " << right << endl;
-
-        
         velocity.x *= -1;
     }
     if (ballPosition.y < top ) {
@@ -109,6 +104,9 @@ void Ball::move() {
     prevPosition = getPosition();
     shape.move(velocity);
 }
+void Ball::shift(int barMovement){
+    shape.move(barMovement, 0);
+};
 
 void Ball::start(){
     if (velocity.x == 0 && velocity.y == 0) {
@@ -116,4 +114,9 @@ void Ball::start(){
     }
 }
 
+void Ball::centerWithBar(int barWidth){
+    Vector2f ballPosition = getPosition();
+    float ballRadius = getShape().getRadius();
+    shape.move( barWidth/2 - ballRadius, -1*(ballRadius *2));
+}
 
