@@ -61,7 +61,7 @@ void Game::initGodMode(Level &currentLevel){
     auto barPosition = currentLevel.bar.getPosition();
     auto ballVelocity = currentLevel.ball.getVelocity();
     currentLevel.bar = Bar(Vector2f(fieldWidth, BAR_HEIGHT), Vector2f(fieldLeft, barPosition.y), 100);
-    currentLevel.ball.setVelocity(ballVelocity.x * 5, ballVelocity.y * 5);
+    currentLevel.ball.setVelocity(ballVelocity.x * 3, ballVelocity.y * 3.5);
 }
 
 
