@@ -61,8 +61,9 @@ Level::Level(string fileName) {
     getline(ins, line);
     int ballSpeed = stoi(line);
     auto ballPosition = barPosition;
-    ball = Ball(ballPosition, ballSpeed);
-    
+    //ball position offset
+    ball = Ball(ballPosition,ballSpeed);
+    ball.centerWithBar(barWidth);
     //get isGodMode
     getline(ins, line);
     isGodMode = stoi(line);

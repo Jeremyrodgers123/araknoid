@@ -1,4 +1,4 @@
-
+ 
 #include <iostream>
 #include <cstdlib>
 #include <SFML/Graphics.hpp>
@@ -27,11 +27,13 @@ int main() {
         
         // loop through levels
         for( int i = 0 ; i < game.levels.size(); i++){
-            //for (auto level : game.levels) {
+
             bool skipLevel = false;
 //            if (level.isComplete()) {
 //                continue;
 //            }
+           
+           
             
             //update title
             window.setTitle("A&J's Arkanoid: " + game.levels[i].getName() + " by " + game.levels[i].getAuthor());
@@ -45,9 +47,15 @@ int main() {
                 {
                     if(event.KeyPressed){
                         if(Keyboard::isKeyPressed(Keyboard::Left)){
-                            game.levels[i].bar.moveLeft(game.levels[i].field);
+                          int barMovement = game.levels[i].bar.moveLeft(game.levels[i].field);
+                            if(game.levels[i].ball.getVelocity().x == 0){
+                                game.levels[i].ball.shift(barMovement);
+                            }
                         }else if(Keyboard::isKeyPressed(Keyboard::Right)){
-                            game.levels[i].bar.moveRight(game.levels[i].field);
+                            int barMovement = game.levels[i].bar.moveRight(game.levels[i].field);
+                            if(game.levels[i].ball.getVelocity().x == 0){
+                                game.levels[i].ball.shift(barMovement);
+                            }
                         } else if(Keyboard::isKeyPressed(Keyboard::Escape)){
                             skipLevel = true;
                             game.levels[i] = Level(LEVEL_NAMES[i]);
@@ -71,6 +79,17 @@ int main() {
                 // end the current frame
                 window.display();
             }
+            
+        }
+        for(int i = 0; i < 1000; i ++){
+            Text gameOverText("Game Over", game.fontType, 200);
+            Vector2u windowSize = window.getSize();
+            auto xOffset = (windowSize.x - gameOverText.getGlobalBounds().width) *0.5;
+            auto yOffset = (windowSize.y - gameOverText.getGlobalBounds().height) *0.5;
+            gameOverText.setPosition(xOffset, yOffset );
+            window.clear(BACKGROUND_COLOR);
+            window.draw(gameOverText);
+            window.display();
         }
     }
     return 0;

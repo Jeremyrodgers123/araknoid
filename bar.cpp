@@ -26,24 +26,31 @@ Bar::Bar(Vector2f _dimension, Vector2f _position, int _speed){
     shape.setOutlineThickness(1);
 };
 
-void Bar::moveLeft(Field field){
-    auto bounds = field.getShape().getGlobalBounds();
-    auto left = bounds.left;
+int Bar::moveLeft(Field field){
+    auto fieldPosition = field.getShape().getPosition();
+    auto left = fieldPosition.x;
     auto barPosition = getPosition();
+    auto movement = 0;
     if (barPosition.x > left) {
+        movement = speed * -1;
         shape.move(speed * -1, 0);
     } else {
         shape.setPosition(left, barPosition.y);
     }
+    return movement;
 };
 
-void Bar::moveRight(Field field){
-    auto bounds = field.getShape().getGlobalBounds();
-    auto right = bounds.left + bounds.width;
+int Bar::moveRight(Field field){
+    auto fieldPosition = field.getShape().getPosition();
+    auto fieldSize = field.getShape().getSize();
+    auto right = fieldPosition.x + fieldSize.x;
     auto barPosition = getPosition();
+     auto movement = 0;
     if (barPosition.x  + shape.getSize().x < right) {
         shape.move(speed, 0);
+        movement = speed;
     } else {
         shape.setPosition(right - shape.getSize().x, barPosition.y);
     }
+    return movement;
 };

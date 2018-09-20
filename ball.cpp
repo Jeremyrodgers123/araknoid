@@ -88,11 +88,6 @@ void Ball::detectCollision(Field field){
     auto ballPosition = getPosition();
     if (ballPosition.x < left || ballPosition.x > right) {
         shape.setPosition(prevPosition);
-        cout << "Left: " << left << endl;
-        cout << "X: " << field.getShape().getPosition().x << endl;
-        cout << "Right: " << right << endl;
-
-        
         velocity.x *= -1;
     }
     if (ballPosition.y < top ) {
@@ -107,9 +102,18 @@ void Ball::move() {
     prevPosition = getPosition();
     shape.move(velocity);
 }
+void Ball::shift(int barMovement){
+    shape.move(barMovement, 0);
+};
 
 void Ball::start(){
+    if(velocity.x != 0 && velocity.y != 0) return;
     velocity = Vector2f(-1 * speed,-1 *speed );
 }
 
+void Ball::centerWithBar(int barWidth){
+    Vector2f ballPosition = getPosition();
+    float ballRadius = getShape().getRadius();
+    shape.move( barWidth/2 - ballRadius, -1*(ballRadius *2));
+}
 

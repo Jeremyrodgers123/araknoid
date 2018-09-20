@@ -36,7 +36,9 @@ public:
     void detectCollision(Bar bar);
     bool detectCollision(Block block);
     void move();
+    void shift(int barMovement);
     Vector2f getVelocity() {return velocity;};
+    void centerWithBar(int barWidth);
 };
 
 #endif /* ball_hpp */
