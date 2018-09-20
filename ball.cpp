@@ -77,7 +77,7 @@ void Ball::detectCollision(Bar bar){
     }
 };
 
-void Ball::detectCollision(Field field){
+void Ball::detectCollision(Field field, bool isGodMode){
     auto fieldPosition = field.getShape().getPosition();
     auto fieldSize =field.getShape().getSize();
     auto top = fieldPosition.y;
@@ -99,7 +99,9 @@ void Ball::detectCollision(Field field){
         velocity.y *= -1;
     }else if( ballPosition.y > bottom){
         velocity.y *= -1;
-        isInbounds = false;
+        if (!isGodMode) {
+            isInbounds = false;
+        }
     }
 };
 

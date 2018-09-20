@@ -46,7 +46,7 @@ void Bar::moveRight(Field field){
     if (barPosition.x  + barSize.x < right) {
         shape.move(speed, 0);
     } else {
-        shape.setPosition(right - shape.getSize().x, barPosition.y);
+        shape.setPosition(right - barSize.x, barPosition.y);
     }
 };
 
@@ -66,9 +66,10 @@ void Bar::moveDown(Field field){
     auto fieldSize = field.getShape().getSize();
     auto bottom = fieldPosition.y + fieldSize.y;
     auto barPosition = getPosition();
-    if (barPosition.y  + fieldSize.y < bottom) {
+    auto barSize = shape.getSize();
+    if (barPosition.y + barSize.y < bottom) {
         shape.move(0, speed);
     } else {
-        shape.setPosition(barPosition.x, bottom - fieldSize.y);
+        shape.setPosition(barPosition.x, bottom - barSize.y);
     }
 };

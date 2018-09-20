@@ -24,7 +24,6 @@ private:
     Vector2f velocity;
     float speed;
 public:
-    float getSpeed(){return speed;};
     bool isInbounds;
     Ball();
     Ball(Vector2f _position, float _speed);
@@ -32,11 +31,14 @@ public:
     Vector2f getPosition() {return shape.getPosition();};
     Vector2f getPrevPosition(){return prevPosition;};
     CircleShape getShape() {return shape;};
-    void detectCollision(Field field);
+    void detectCollision(Field field, bool isGodMode);
     void detectCollision(Bar bar);
     bool detectCollision(Block block);
     void move();
+    void setSpeed(float _speed) {speed = _speed;};
+    float getSpeed(){return speed;};
     Vector2f getVelocity() {return velocity;};
+    void setVelocity(float _x, float _y) {velocity = Vector2f(_x, _y);};
 };
 
 #endif /* ball_hpp */

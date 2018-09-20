@@ -24,10 +24,10 @@ public:
     Game();
     Game(int _numLives);
     
-    void draw(RenderWindow& window, int levelIndex);
+    void draw(RenderWindow& window, int levelIndex, bool isGodeMode);
     bool isOver() {return numLives == 0;};
-    bool isGodMode() {return godMode;};
-    void toggleGodMode() {godMode = !godMode;};
+    bool getGodMode() {return godMode;};
+    void setGodMode(bool isGodMode) {godMode = isGodMode;};
 };
 
 

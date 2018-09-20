@@ -19,6 +19,7 @@ private:
     FloatRect bounds;
 public:
     Field();
+    Field(bool isGodMode);
     
     RectangleShape getShape() {return shape;};
     FloatRect getRect() {return bounds;};

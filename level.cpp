@@ -13,14 +13,12 @@
 #include "ball.hpp"
 #include "bar.hpp"
 
-const int BLOCKS_PER_ROW = 13;
-const int BLOCK_HEIGHT = 25;
-
-const int BAR_HEIGHT = 20;
-
 using namespace std;
-Level::Level(string fileName) {
-    field = Field();
+
+Level::Level(){};
+
+Level::Level(string fileName, bool isGodMode) {
+    field = Field(isGodMode);
     auto fieldSize = field.getShape().getSize();
     auto fieldPosition = field.getShape().getPosition();
     auto blockDimension = Vector2f(fieldSize.x / BLOCKS_PER_ROW, BLOCK_HEIGHT);
@@ -64,8 +62,8 @@ Level::Level(string fileName) {
     }
 }
 
-void Level::detectCollision(){
-    ball.detectCollision(field);
+void Level::detectCollision(bool isGodeMode){
+    ball.detectCollision(field, isGodeMode);
     ball.detectCollision(bar);
     for(Block &currentBlock : blocks){
         if (currentBlock.isActive){

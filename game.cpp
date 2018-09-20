@@ -19,11 +19,11 @@ Game::Game() {}
 Game::Game(int _numLives) {
     numLives = _numLives;
     for (string levelName : LEVEL_NAMES) {
-        levels.push_back(Level(levelName));
+        levels.push_back(Level(levelName, getGodMode()));
     }
 }
 
-void Game::draw(RenderWindow& window, int levelIndex) {
+void Game::draw(RenderWindow& window, int levelIndex, bool isGodeMode) {
     Level &currentLevel = levels[levelIndex];
     window.draw(currentLevel.field.getShape());
     window.draw(currentLevel.bar.getShape());
@@ -33,7 +33,7 @@ void Game::draw(RenderWindow& window, int levelIndex) {
         }
     }
     currentLevel.ball.move();
-    currentLevel.detectCollision();
+    currentLevel.detectCollision(isGodeMode);
     if(!currentLevel.ball.isInbounds){
         numLives -= 1;
         float speed = currentLevel.ball.getSpeed();

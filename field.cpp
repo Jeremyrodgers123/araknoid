@@ -9,11 +9,18 @@
 
 const int FIELD_WIDTH = 1200;
 const int FIELD_HEIGHT = 1400;
+const int FIELD_HEIGHT_GOD_MODE = 1300;
 const int FIELD_BUFFER = 100;
 const Color GREY = Color(180, 180, 180, 255);
 
-Field::Field() {
-    shape.setSize(Vector2f(FIELD_WIDTH, FIELD_HEIGHT));
+Field::Field() {}
+
+Field::Field(bool isGodMode) {
+    if (isGodMode) {
+        shape.setSize(Vector2f(FIELD_WIDTH, FIELD_HEIGHT_GOD_MODE));
+    } else {
+        shape.setSize(Vector2f(FIELD_WIDTH, FIELD_HEIGHT));
+    }
     shape.setPosition(Vector2f(FIELD_BUFFER, FIELD_BUFFER));
     shape.setFillColor(Color::Black);
     shape.setOutlineColor(GREY);

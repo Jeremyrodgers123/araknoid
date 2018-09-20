@@ -17,6 +17,10 @@
 
 using namespace std;
 
+const int BLOCKS_PER_ROW = 13;
+const int BLOCK_HEIGHT = 25;
+const int BAR_HEIGHT = 20;
+
 class Level {
 private:
     string name;
@@ -26,10 +30,11 @@ public:
     Ball ball;
     vector<Block> blocks;
     Field field;
-    Level(string fileName);
+    Level();
+    Level(string fileName, bool isGodMode);
     bool isComplete();
     void draw(RenderWindow& window);
-    void detectCollision();
+    void detectCollision(bool isGodeMode);
     string getName() {return name;};
     string getAuthor() {return author;};
 };
