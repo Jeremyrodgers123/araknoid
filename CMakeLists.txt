@@ -24,8 +24,13 @@ cmake_minimum_required(VERSION 3.8)
 #the project is called arkanoid
 project(arkanoid)
 
-#the project contains an executable named arkanoid that uses the following cpp files
+#the project contains the following executables:
+
+#'arkanoid' that uses the following cpp files
 add_executable(arkanoid arkanoid.cpp block.hpp block.cpp ball.hpp ball.cpp bar.cpp bar.hpp level.hpp level.cpp game.hpp game.cpp field.hpp field.cpp)
+
+#'arkanoidTests' that uses the following cpp files
+add_executable(arkanoidTests block.cpp ball.cpp bar.cpp level.cpp game.cpp field.cpp catch.hpp arkanoidTests.cpp blockTests.cpp)
 
 #create a folder named "cmake" at the top of your project and put the
 #findSFML.cmake file in it.  This line tells Cmake to look there for
@@ -40,8 +45,12 @@ find_package( SFML REQUIRED COMPONENTS graphics window system)
 
 #tells Cmake that the arkanoid s executable needs to be linked with SFML
 target_link_libraries(arkanoid ${SFML_LIBRARIES})
+target_link_libraries(arkanoidTests ${SFML_LIBRARIES})
+
 #and needs to look wherever the SFML headers are
 target_include_directories(arkanoid PUBLIC ${SFML_INCLUDE_DIR})
+target_include_directories(arkanoidTests PUBLIC ${SFML_INCLUDE_DIR})
 
 #passes an option to clang when compiling to use recent c++ stuff
 target_compile_options(arkanoid PUBLIC -std=c++14)
+target_compile_options(arkanoidTests PUBLIC -std=c++14)
