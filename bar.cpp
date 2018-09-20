@@ -26,6 +26,7 @@ Bar::Bar(Vector2f _dimension, Vector2f _position, int _speed){
     shape.setOutlineThickness(1);
 };
 
+
 int Bar::moveLeft(Field field){
     auto fieldPosition = field.getShape().getPosition();
     auto left = fieldPosition.x;
@@ -40,6 +41,7 @@ int Bar::moveLeft(Field field){
     return movement;
 };
 
+
 int Bar::moveRight(Field field){
     auto fieldPosition = field.getShape().getPosition();
     auto fieldSize = field.getShape().getSize();
@@ -53,4 +55,27 @@ int Bar::moveRight(Field field){
         shape.setPosition(right - shape.getSize().x, barPosition.y);
     }
     return movement;
+};
+
+void Bar::moveUp(Field field){
+    auto fieldPosition = field.getShape().getPosition();
+    auto top = fieldPosition.y;
+    auto barPosition = getPosition();
+    if (barPosition.y > top) {
+        shape.move(0, speed * -1);
+    } else {
+        shape.setPosition(barPosition.x, top);
+    }
+};
+
+void Bar::moveDown(Field field){
+    auto fieldPosition = field.getShape().getPosition();
+    auto fieldSize = field.getShape().getSize();
+    auto bottom = fieldPosition.y + fieldSize.y;
+    auto barPosition = getPosition();
+    if (barPosition.y  + fieldSize.y < bottom) {
+        shape.move(0, speed);
+    } else {
+        shape.setPosition(barPosition.x, bottom - fieldSize.y);
+    }
 };

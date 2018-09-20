@@ -26,7 +26,6 @@ public:
     Ball ball;
     vector<Block> blocks;
     Field field;
-    bool isGodMode;
     Level(string fileName);
     bool isComplete();
     void draw(RenderWindow& window);

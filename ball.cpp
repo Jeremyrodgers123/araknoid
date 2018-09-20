@@ -107,8 +107,9 @@ void Ball::shift(int barMovement){
 };
 
 void Ball::start(){
-    if(velocity.x != 0 && velocity.y != 0) return;
-    velocity = Vector2f(-1 * speed,-1 *speed );
+    if (velocity.x == 0 && velocity.y == 0) {
+        velocity = Vector2f(-1 * speed,-1 *speed );
+    }
 }
 
 void Ball::centerWithBar(int barWidth){

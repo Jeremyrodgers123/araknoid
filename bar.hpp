@@ -24,7 +24,10 @@ public:
     
     RectangleShape getShape(){ return shape;};
     Vector2f getPosition() { return shape.getPosition();};
+
     int moveLeft(Field field);
     int moveRight(Field field);
+    void moveUp(Field field);
+    void moveDown(Field field);
 };
 #endif /* bar_hpp */

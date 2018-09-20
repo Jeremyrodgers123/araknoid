@@ -24,6 +24,7 @@ Block::Block(Vector2f _dimensions, Vector2f _position, int _colorIndex) {
         case 9:
             isActive = true;
             isBreakable = false;
+            break;
         default:
             isActive = true;
             isBreakable = true;

@@ -15,10 +15,9 @@ Maximum Rows = 10
 FORMAT:
 Title
 Author
-Bar Width: 100 = narrow, 500 = wide
-Bar Speed: 10 = slow, 50 = fast
-Ball Speed: 1 = slow, 3 = fast
-isGodMode: 0 = false, 1 = true
+Bar Width (int): 100 = narrow, 500 = wide
+Bar Speed (int): 10 = slow, 50 = fast
+Ball Speed (float): 1 = slow, 3 = super fast
 Row 0 Values (x13)
 Row 1 Values (x13)
 Row 2 Values (x13)
@@ -35,7 +34,7 @@ Level 1
 Adam Quintana
 5
 5
-0
+1
 2222222222222
 0000000000000
 3333333333333

@@ -14,7 +14,6 @@
 #include "bar.hpp"
 
 const int BLOCKS_PER_ROW = 13;
-const int BLOCKS_PER_COLUMN = 10;
 const int BLOCK_HEIGHT = 25;
 
 const int BAR_HEIGHT = 20;
@@ -22,17 +21,8 @@ const int BAR_HEIGHT = 20;
 using namespace std;
 Level::Level(string fileName) {
     field = Field();
-    auto fieldTopPosition = field.getShape().getGlobalBounds().top;
-    auto fieldHeight = field.getShape().getGlobalBounds().height;
-    auto fieldBottomPosition = fieldTopPosition + fieldHeight;
-    auto fieldLeftPosition = field.getShape().getGlobalBounds().left;
-    auto fieldWidth = field.getShape().getGlobalBounds().width;
-    auto fieldRightPosition = fieldLeftPosition + fieldWidth;
     auto fieldSize = field.getShape().getSize();
     auto fieldPosition = field.getShape().getPosition();
-                               
-    
-    
     auto blockDimension = Vector2f(fieldSize.x / BLOCKS_PER_ROW, BLOCK_HEIGHT);
     auto currentBlockPosition = fieldPosition;
     ifstream ins(fileName);
@@ -54,19 +44,17 @@ Level::Level(string fileName) {
     getline(ins, line);
     int barSpeed = stoi(line);
     auto barDimension = Vector2f(barWidth, BAR_HEIGHT);
-    auto barPosition = Vector2f(fieldPosition.x + fieldSize.x/2 - barWidth/2, fieldBottomPosition - 200);
+    auto barPosition = Vector2f(fieldPosition.x + fieldSize.x/2 - barWidth/2, fieldPosition.y + fieldSize.y - 200);
     bar = Bar(barDimension, barPosition, barSpeed);
     
     //get ball settings
     getline(ins, line);
     int ballSpeed = stoi(line);
     auto ballPosition = barPosition;
+
     //ball position offset
     ball = Ball(ballPosition,ballSpeed);
     ball.centerWithBar(barWidth);
-    //get isGodMode
-    getline(ins, line);
-    isGodMode = stoi(line);
     
     while(getline(ins, line)) {
         currentBlockPosition.x = fieldPosition.x;
