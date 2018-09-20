@@ -23,13 +23,13 @@ public:
     
     Game();
     Game(int _numLives);
-    
     void draw(RenderWindow& window, int levelIndex, bool isGodeMode);
     bool isOver() {return numLives == 0;};
     Text livesCounter;
     Font fontType;
     bool getGodMode() {return godMode;};
     void setGodMode(bool isGodMode) {godMode = isGodMode;};
+    void initGodMode(Level &currentLevel);
 };
 
 

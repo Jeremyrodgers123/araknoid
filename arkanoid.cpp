@@ -72,14 +72,7 @@ int main() {
                         } else if(Keyboard::isKeyPressed(Keyboard::Space)){
                             game.levels[i].ball.start();
                         } else if(Keyboard::isKeyPressed(Keyboard::G)){
-                            game.setGodMode(true);
-                            game.levels[i].field = Field(game.getGodMode());
-                            auto fieldWidth = game.levels[i].field.getShape().getSize().x;
-                            auto fieldLeft = game.levels[i].field.getShape().getPosition().x;
-                            auto barPosition = game.levels[i].bar.getPosition();
-                            auto ballVelocity = game.levels[i].ball.getVelocity();
-                            game.levels[i].bar = Bar(Vector2f(fieldWidth, BAR_HEIGHT), Vector2f(fieldLeft, barPosition.y), 100);
-                            game.levels[i].ball.setVelocity(ballVelocity.x * 5, ballVelocity.y * 5);
+                            game.initGodMode(game.levels[i]);
                         }
                     }
                     
