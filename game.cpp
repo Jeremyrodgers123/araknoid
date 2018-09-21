@@ -56,12 +56,11 @@ void Game::draw(RenderWindow& window, int levelIndex, bool isGodeMode) {
 void Game::initGodMode(Level &currentLevel){
     godMode = true;
     currentLevel.field = Field(getGodMode());
-    auto fieldWidth = currentLevel.field.getShape().getSize().x;
-    auto fieldLeft = currentLevel.field.getShape().getPosition().x;
     auto barPosition = currentLevel.bar.getPosition();
+    auto barSize = currentLevel.bar.getShape().getSize();
     auto ballVelocity = currentLevel.ball.getVelocity();
-    currentLevel.bar = Bar(Vector2f(fieldWidth, BAR_HEIGHT), Vector2f(fieldLeft, barPosition.y), 100);
-    currentLevel.ball.setVelocity(ballVelocity.x * 3, ballVelocity.y * 3.5);
+    currentLevel.bar = Bar(barSize, barPosition, 100);
+    currentLevel.ball.setVelocity(ballVelocity.x *= 1.3, ballVelocity.y *= 1.1);
 }
 
 

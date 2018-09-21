@@ -58,7 +58,7 @@ Level::Level(string fileName, bool isGodMode) {
         currentBlockPosition.x = fieldPosition.x;
         for (char c : line) {
             int colorIndex = c - '0';
-            blocks.push_back (Block(blockDimension, currentBlockPosition, colorIndex));
+            blocks.push_back(Block(blockDimension, currentBlockPosition, colorIndex));
             currentBlockPosition.x += blockDimension.x;
         }
         currentBlockPosition.y += blockDimension.y;

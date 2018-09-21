@@ -1,6 +1,6 @@
 LEGEND:
 Maximum Columns = 13
-Maximum Rows = 10
+Maximum Rows = ?
 0: SPACE/BLANK
 1: RED
 2: GREEN
@@ -28,6 +28,8 @@ Row 6 Values (x13)
 Row 7 Values (x13)
 Row 8 Values (x13)
 Row 9 Values (x13)
+...
+...
 
 EXAMPLE:
 Level 1
