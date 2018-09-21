@@ -115,7 +115,6 @@ void Ball::start(){
 }
 
 void Ball::centerWithBar(int barWidth){
-    Vector2f ballPosition = getPosition();
     float ballRadius = getShape().getRadius();
     shape.move( barWidth/2 - ballRadius, -1*(ballRadius *2));
 }

@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <vector>
 #include "level.hpp"
-const vector<string> LEVEL_NAMES = vector<string> {"level1.txt", "level2.txt", "level3.txt", "level4.txt"};
+const vector<string> LEVEL_NAMES = vector<string> {"level1.txt", "level2.txt", "level3.txt", "level4.txt", "level5.txt", "level6.txt"};
 
 class Game {
 private:
