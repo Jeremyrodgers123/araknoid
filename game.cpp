@@ -60,7 +60,7 @@ void Game::initGodMode(Level &currentLevel){
     auto barSize = currentLevel.bar.getShape().getSize();
     auto ballVelocity = currentLevel.ball.getVelocity();
     currentLevel.bar = Bar(barSize, barPosition, 100);
-    currentLevel.ball.setVelocity(ballVelocity.x *= 1.3, ballVelocity.y *= 1.1);
+    currentLevel.ball.setVelocity(ballVelocity.x *= 1.1, ballVelocity.y *= 1.1);
 }
 
 
